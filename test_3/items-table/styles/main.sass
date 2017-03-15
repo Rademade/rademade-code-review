@@ -1,0 +1,69 @@
+.flex-table
+  display: flex
+  flex-direction: column
+
+.flex-table-header
+  display: flex
+  width: 100%
+
+
+.flex-table-item
+
+  &.is-active
+
+    .flex-table-item-dropdown
+      display: flex
+
+  &:nth-of-type(odd)
+    background: rgba(0, 0, 0, 0.05)
+
+  &.mod-info
+    background: none
+
+
+.order-item-title
+  cursor: pointer
+
+.flex-table-content
+  overflow-y: auto
+  -webkit-overflow-scrolling: touch
+  max-height: 580px
+
+.flex-table-item-data
+  display: flex
+  width: 100%
+
+.flex-table-item-dropdown
+  display: none
+  width: 100%
+  border-top: 1px solid rgba(0, 0, 0, 0.05)
+
+.flex-table-box
+  display: flex
+  padding: 10px
+  flex: 0 12.5%
+  box-sizing: border-box
+
+  &.mod-number,
+  &.mod-actions
+    flex: 0 65px
+
+  &.mod-title
+    flex: 0 25%
+
+  &.mod-auto
+    flex: 1
+
+  &.mod-colspan5
+    flex: 0 calc(11% * 3 + 25% + 65px)
+
+  &.mod-colspan2
+    flex: 0 calc(11% * 2)
+
+  &.mod-actions
+
+    .fa
+      cursor: pointer
+
+.text-xs-right
+  justify-content: flex-end

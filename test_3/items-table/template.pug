@@ -1,0 +1,58 @@
+div.flex-table
+
+  div.flex-table-header
+    b.flex-table-box.mod-number Арт.
+    b.flex-table-box.mod-title Наименование
+    b.flex-table-box Цена
+    b.flex-table-box Кол-во
+    //b.flex-table-box Стоимость
+    b.flex-table-box Тип скидки
+    b.flex-table-box Скидка
+    b.flex-table-box Итого
+    b.flex-table-box.mod-actions.text-xs-right.clear-order-cart((click) = "clearOrderCart()")
+      i.fa.fa-trash.text-primary
+
+  div.flex-table-content
+    div.flex-table-item(*ngFor="let orderItem of orderItems", [class.is-focused]="orderItem.isActive", [class.is-active]="orderItem.isFocused", (click)="toggleOrderItemActive(orderItem)")
+      div.flex-table-item-data.order-item
+        div.flex-table-box.mod-number.order-item-article
+          div {{ orderItem.article }}
+        div.flex-table-box.mod-title.order-item-title((click)="orderItem.isFocused = !orderItem.isFocused")
+          span.text-xs-left.btn-link.btn-no-padding.mod-mw300 {{ orderItem.title}}
+        div.flex-table-box.order-item-price
+          span {{orderItem.price | number:'1.2-2'}}
+        div.flex-table-box.order-item-count((click)="preventClickEvent($event)")
+          input.form-control(
+            type='number',
+            value="{{ orderItem.count }}",
+            (change)="onOrderItemCountInputChange(orderItem, $event)",
+            (click)="$event.target.select()",
+            (focus)="inactivateOrderItemsExcept(orderItem.id)",
+            min="1",
+            max="99",
+            [readonly]="isNavigationDisabled"
+          )
+
+        //div.flex-table-box.order-item-total-price
+        //  span {{orderItem.total_price | number:'1.2-2'}}
+
+        div.flex-table-box.order-item-discount-type
+          //- pp-select([items]=[{text: 'Без скидки'}, {text: '-80%'}, {text: '-50%'}])
+          pp-orders-show-shared-items-table-discount-select([orderItem]="orderItem", [isActive]="showDiscount")
+
+        div.flex-table-box.order-item-discount
+          span {{ orderItem.discount_value }}
+
+        div.flex-table-box.order-item-price-with-discount
+          span {{ orderItem.price_with_discount  | number:'1.2-2'}}
+
+        div.flex-table-box.mod-actions.text-xs-right.delete-order-item((click)="deleteOrderItem(orderItem)")
+          i.fa.fa-times.text-danger
+
+      div.flex-table-item-dropdown([class.is-active]="orderItem.isFocused")
+        div.flex-table-box.mod-number
+          div 327
+        div.flex-table-box.mod-title.mod-auto
+          span.text-muted Без лука
+        div.flex-table-box.mod-actions.text-xs-right
+          i.fa.fa-times.text-danger

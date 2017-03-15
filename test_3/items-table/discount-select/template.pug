@@ -1,0 +1,4 @@
+select.form-control([formControl]="selectedDiscount", (change)="onDiscountSelected($event)")
+  option(*ngFor="let discount of discounts",
+         [ngValue]="discount.getValue()",
+         [selected]="discount.isSelected()") {{ discount.getText() }}
